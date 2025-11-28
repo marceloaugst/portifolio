@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\PortfolioConfig;
 
 class PortfolioController extends Controller
 {
     public function index()
     {
-        $data = [
-            'name' => 'Marcelo Augusto Alves Farias',
-            'title' => 'Desenvolvedor Full Stack',
-            'bio' => 'Sou um desenvolvedor Full Stack apaixonado por criar soluções tecnológicas inovadoras e eficientes. Com experiência sólida em desenvolvimento backend e frontend, transformo ideias em aplicações robustas e escaláveis. Minha jornada na programação me proporcionou expertise em diversas tecnologias modernas, permitindo-me entregar projetos de alta qualidade que atendem às necessidades dos usuários e do negócio. Estou sempre em busca de novos desafios e oportunidades para aprender e crescer profissionalmente.',
-            'skills' => [
+        $config = PortfolioConfig::getConfig();
+
+        // Se skills estiver vazio ou for um array simples de strings, usar estrutura padrão
+        $skills = $config->skills;
+
+        // Verifica se é um array simples de strings ou se está vazio
+        if (empty($skills) || (is_array($skills) && !isset($skills['backend']))) {
+            $skills = [
                 'backend' => [
                     ['name' => 'Laravel', 'icon' => 'fab fa-laravel', 'color' => '#FF2D20', 'url' => 'https://laravel.com'],
                     ['name' => 'Golang', 'icon' => 'fab fa-golang', 'color' => '#00ADD8', 'url' => 'https://golang.org'],
@@ -29,7 +33,14 @@ class PortfolioController extends Controller
                     ['name' => 'PostgreSQL', 'icon' => 'fas fa-database', 'color' => '#336791', 'url' => 'https://www.postgresql.org'],
                     ['name' => 'MongoDB', 'icon' => 'fas fa-leaf', 'color' => '#47A248', 'url' => 'https://www.mongodb.com'],
                 ],
-            ],
+            ];
+        }
+
+        $data = [
+            'name' => $config->name,
+            'title' => $config->title,
+            'bio' => $config->bio,
+            'skills' => $skills,
             'social' => [
                 'github' => 'https://github.com/marceloaugst',
                 'linkedin' => 'https://www.linkedin.com/in/marcelo-augusto-3120641a3',
