@@ -90,16 +90,17 @@ function ProjectCard({ project }) {
                     </>
                 )}
             </div>
-            <div className="flex flex-1 flex-col gap-2.5 px-6 py-5.5">
+            <div className="flex flex-1 flex-col gap-2.5 px-6 py-5">
                 <h3 className="m-0 text-lg">{project.name}</h3>
                 <p className="m-0 flex-1 text-[0.92rem] leading-relaxed text-slate-400">{project.description}</p>
                 <a
                     href={project.link}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-2 inline-flex w-fit items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4.5 py-2.5 text-sm font-medium text-indigo-300 no-underline"
+                    className="mt-2 inline-flex max-w-full items-center gap-2 overflow-hidden rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-2.5 text-sm font-medium text-indigo-300 no-underline"
                 >
-                    <i className="fas fa-arrow-up-right-from-square text-xs" /> {project.domain}
+                    <i className="fas fa-arrow-up-right-from-square flex-shrink-0 text-xs" />
+                    <span className="truncate">{project.domain}</span>
                 </a>
             </div>
         </div>
@@ -178,7 +179,7 @@ export default function Index({ name, title, bio, skills, projects, social }) {
                             </div>
                         </div>
                         <div>
-                            <h3 className="m-0 mb-4.5 text-2xl">{title}</h3>
+                            <h3 className="m-0 mb-4 text-2xl">{title}</h3>
                             <p className="m-0 mb-6 text-[1.05rem] leading-loose text-slate-400">{bio}</p>
                             <div className="grid grid-cols-3 gap-4">
                                 {[
@@ -186,7 +187,7 @@ export default function Index({ name, title, bio, skills, projects, social }) {
                                     ['∞', 'Curiosidade'],
                                     ['100%', 'Dedicação'],
                                 ].map(([number, label]) => (
-                                    <div key={label} className="rounded-2xl border border-slate-700 bg-slate-800 px-2.5 py-4.5 text-center">
+                                    <div key={label} className="rounded-2xl border border-slate-700 bg-slate-800 px-2.5 py-4 text-center">
                                         <div className="bg-gradient-to-br from-indigo-500 to-violet-500 bg-clip-text text-3xl font-bold text-transparent">
                                             {number}
                                         </div>
@@ -210,7 +211,7 @@ export default function Index({ name, title, bio, skills, projects, social }) {
                                     <div className="mt-1 h-3.5 w-3.5 flex-shrink-0 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500" />
                                     {i < experienceItems.length - 1 && <div className="w-0.5 flex-1 bg-slate-700" />}
                                 </div>
-                                <div className="rounded-2xl border border-slate-700 bg-slate-800 px-6.5 py-5.5">
+                                <div className="rounded-2xl border border-slate-700 bg-slate-800 px-6 py-5">
                                     <div className="mb-1.5 text-sm font-semibold text-indigo-300">{job.period}</div>
                                     <h3 className="m-0 mb-1 text-lg">{job.role}</h3>
                                     <div className="mb-2.5 text-slate-400">{job.company}</div>
@@ -229,7 +230,7 @@ export default function Index({ name, title, bio, skills, projects, social }) {
                     <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-4">
                         {Object.entries(skillCategoryMeta).map(([key, meta]) => (
                             <div key={key} className="rounded-[20px] border border-slate-700 bg-slate-800 p-8">
-                                <h3 className="m-0 mb-5.5 flex items-center gap-2.5 text-lg font-semibold">
+                                <h3 className="m-0 mb-5 flex items-center gap-2.5 text-lg font-semibold">
                                     <i className={meta.icon} style={{ color: meta.color }} />
                                     {meta.title}
                                 </h3>
@@ -243,7 +244,7 @@ export default function Index({ name, title, bio, skills, projects, social }) {
                                             className="flex items-center gap-3.5 rounded-xl bg-black/20 p-3.5 text-inherit no-underline"
                                         >
                                             <div
-                                                className="flex h-10.5 w-10.5 flex-shrink-0 items-center justify-center rounded-[10px] text-xl"
+                                                className="flex h-[42px] w-[42px] flex-shrink-0 items-center justify-center rounded-[10px] text-xl"
                                                 style={{ background: `${skill.color}20`, color: skill.color }}
                                             >
                                                 <i className={skill.icon} />
@@ -277,17 +278,19 @@ export default function Index({ name, title, bio, skills, projects, social }) {
                     <div className="grid grid-cols-1 gap-14 lg:grid-cols-2">
                         <div>
                             <h3 className="m-0 mb-4 text-2xl">Vamos trabalhar juntos!</h3>
-                            <p className="m-0 mb-6.5 text-slate-400">
+                            <p className="m-0 mb-6 text-slate-400">
                                 Estou sempre aberto a discutir novos projetos, ideias criativas ou oportunidades para fazer parte de suas visões.
                             </p>
-                            <div className="flex flex-col gap-4.5">
+                            <div className="flex flex-col gap-4">
                                 <a
                                     href={social.github}
                                     target="_blank"
                                     rel="noreferrer"
                                     className="flex items-center gap-4 rounded-2xl border border-slate-700 bg-slate-800 p-5 text-slate-50 no-underline"
                                 >
-                                    <i className="fab fa-github flex h-12.5 w-12.5 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 text-2xl" />
+                                    <span className="flex h-[50px] w-[50px] flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 text-2xl">
+                                        <i className="fab fa-github" />
+                                    </span>
                                     <div>
                                         <strong>GitHub</strong>
                                         <p className="m-0 text-sm text-slate-400">Confira meus projetos</p>
@@ -299,7 +302,9 @@ export default function Index({ name, title, bio, skills, projects, social }) {
                                     rel="noreferrer"
                                     className="flex items-center gap-4 rounded-2xl border border-slate-700 bg-slate-800 p-5 text-slate-50 no-underline"
                                 >
-                                    <i className="fab fa-linkedin flex h-12.5 w-12.5 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 text-2xl" />
+                                    <span className="flex h-[50px] w-[50px] flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 text-2xl">
+                                        <i className="fab fa-linkedin" />
+                                    </span>
                                     <div>
                                         <strong>LinkedIn</strong>
                                         <p className="m-0 text-sm text-slate-400">Conecte-se comigo</p>
@@ -309,7 +314,9 @@ export default function Index({ name, title, bio, skills, projects, social }) {
                                     href={`mailto:${social.email}`}
                                     className="flex items-center gap-4 rounded-2xl border border-slate-700 bg-slate-800 p-5 text-slate-50 no-underline"
                                 >
-                                    <i className="fas fa-envelope flex h-12.5 w-12.5 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 text-2xl" />
+                                    <span className="flex h-[50px] w-[50px] flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 text-2xl">
+                                        <i className="fas fa-envelope" />
+                                    </span>
                                     <div>
                                         <strong>Email</strong>
                                         <p className="m-0 text-sm text-slate-400">{social.email}</p>
