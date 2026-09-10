@@ -5,6 +5,7 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProjectController;
 
 // Rotas públicas
 Route::get('/', [PortfolioController::class, 'index'])->name('home');
@@ -20,4 +21,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
    Route::put('/admin/update', [AdminController::class, 'updatePortfolio'])->name('admin.update');
+
+   Route::post('/admin/projects', [ProjectController::class, 'store'])->name('admin.projects.store');
+   Route::put('/admin/projects/{project}', [ProjectController::class, 'update'])->name('admin.projects.update');
+   Route::delete('/admin/projects/{project}', [ProjectController::class, 'destroy'])->name('admin.projects.destroy');
+   Route::post('/admin/projects/{project}/screenshots', [ProjectController::class, 'uploadScreenshot'])->name('admin.projects.screenshots.store');
+   Route::delete('/admin/projects/{project}/screenshots', [ProjectController::class, 'deleteScreenshot'])->name('admin.projects.screenshots.destroy');
 });

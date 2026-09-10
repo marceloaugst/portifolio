@@ -2,19 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\PortfolioConfig;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Project;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class AdminController extends Controller
 {
     /**
      * Dashboard administrativo
      */
-    public function dashboard()
+    public function dashboard(): Response
     {
         $config = PortfolioConfig::getConfig();
-        return view('admin.dashboard', compact('config'));
+        $config->setAttribute('skills', $config->normalizedSkills());
+
+        $projects = Project::orderBy('order')->get()
+            ->map(fn ($project) => [
+                ...$project->toArray(),
+                'screenshots' => collect($project->screenshots ?? [])
+                    ->map(fn ($path) => ['path' => $path, 'url' => "/storage/{$path}"])
+                    ->values(),
+            ]);
+
+        return Inertia::render('Admin/Dashboard', [
+            'config' => $config,
+            'projects' => $projects,
+        ]);
     }
 
     /**
@@ -27,7 +42,11 @@ class AdminController extends Controller
             'title' => 'required|string|max:255',
             'bio' => 'required|string',
             'skills' => 'nullable|array',
-            'skills.*' => 'string|max:100',
+            'skills.*' => 'array',
+            'skills.*.*.name' => 'required_with:skills|string|max:100',
+            'skills.*.*.icon' => 'nullable|string|max:100',
+            'skills.*.*.color' => 'nullable|string|max:20',
+            'skills.*.*.url' => 'nullable|string|max:255',
         ]);
 
         $config = PortfolioConfig::first();
