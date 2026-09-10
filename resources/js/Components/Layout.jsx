@@ -1,4 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
+import { useState } from 'react';
 
 const navLinks = [
     { href: '#home', label: 'Início' },
@@ -11,6 +12,20 @@ const navLinks = [
 
 export default function Layout({ children }) {
     const { auth } = usePage().props;
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const authLink = auth?.user ? (
+        <Link
+            href={route('admin.dashboard')}
+            className="text-sm font-medium text-slate-400 no-underline transition-colors hover:text-slate-50"
+        >
+            Admin
+        </Link>
+    ) : (
+        <Link href={route('login')} className="text-sm font-medium text-slate-400 no-underline transition-colors hover:text-slate-50">
+            Login
+        </Link>
+    );
 
     return (
         <div className="relative min-h-screen overflow-x-hidden bg-slate-950 text-slate-50">
@@ -32,7 +47,8 @@ export default function Layout({ children }) {
                     >
                         MA
                     </a>
-                    <nav>
+
+                    <nav className="hidden md:block">
                         <ul className="flex flex-wrap items-center gap-6">
                             {navLinks.map((link) => (
                                 <li key={link.href}>
@@ -44,26 +60,38 @@ export default function Layout({ children }) {
                                     </a>
                                 </li>
                             ))}
-                            <li>
-                                {auth?.user ? (
-                                    <Link
-                                        href={route('admin.dashboard')}
-                                        className="text-sm font-medium text-slate-400 no-underline transition-colors hover:text-slate-50"
-                                    >
-                                        Admin
-                                    </Link>
-                                ) : (
-                                    <Link
-                                        href={route('login')}
-                                        className="text-sm font-medium text-slate-400 no-underline transition-colors hover:text-slate-50"
-                                    >
-                                        Login
-                                    </Link>
-                                )}
-                            </li>
+                            <li>{authLink}</li>
                         </ul>
                     </nav>
+
+                    <button
+                        type="button"
+                        onClick={() => setMenuOpen((open) => !open)}
+                        className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 text-slate-300 md:hidden"
+                        aria-label="Abrir menu"
+                    >
+                        <i className={menuOpen ? 'fas fa-times' : 'fas fa-bars'} />
+                    </button>
                 </div>
+
+                {menuOpen && (
+                    <nav className="border-t border-slate-700 bg-slate-950/95 px-5 py-4 md:hidden">
+                        <ul className="flex flex-col gap-4">
+                            {navLinks.map((link) => (
+                                <li key={link.href}>
+                                    <a
+                                        href={link.href}
+                                        onClick={() => setMenuOpen(false)}
+                                        className="text-sm font-medium text-slate-400 no-underline transition-colors hover:text-slate-50"
+                                    >
+                                        {link.label}
+                                    </a>
+                                </li>
+                            ))}
+                            <li onClick={() => setMenuOpen(false)}>{authLink}</li>
+                        </ul>
+                    </nav>
+                )}
             </header>
 
             <main className="relative z-10 mt-20">{children}</main>

@@ -34,11 +34,11 @@ export default function Dashboard({ config, projects }) {
             <Head title="Painel Administrativo" />
 
             <nav className="border-b border-slate-700 bg-slate-900">
-                <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
+                <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                     <span className="flex items-center gap-2 text-lg font-semibold">
                         <i className="fas fa-user-shield text-indigo-400" /> Painel Administrativo
                     </span>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between gap-4 sm:justify-end">
                         <span className="text-sm text-slate-400">
                             <i className="fas fa-user-circle" /> {auth.user?.name}
                         </span>

@@ -63,7 +63,7 @@ export default function SkillsEditor({ skills, onChange }) {
                                     type="color"
                                     value={skill.color || '#6366f1'}
                                     onChange={(e) => updateSkill(category, index, 'color', e.target.value)}
-                                    className="h-8 w-full rounded-md border border-slate-700 bg-slate-950"
+                                    className="col-span-2 h-8 w-full rounded-md border border-slate-700 bg-slate-950"
                                 />
                             </div>
                         ))}
