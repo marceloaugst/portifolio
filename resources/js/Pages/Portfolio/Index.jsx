@@ -2,27 +2,6 @@ import { Head, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import Layout from '../../Components/Layout';
 
-const experienceItems = [
-    {
-        period: '2024 — Atual',
-        role: 'Desenvolvedor Full Stack',
-        company: 'Empresa Atual',
-        description: 'Desenvolvimento de aplicações web com Laravel, Golang e React, do backend ao frontend.',
-    },
-    {
-        period: '2022 — 2024',
-        role: 'Desenvolvedor Backend',
-        company: 'Empresa Anterior',
-        description: 'Construção e manutenção de APIs e serviços em Laravel e Golang.',
-    },
-    {
-        period: '2021 — 2022',
-        role: 'Desenvolvedor Mobile',
-        company: 'Primeira Empresa',
-        description: 'Desenvolvimento de apps mobile com Flutter e React Native.',
-    },
-];
-
 const skillCategoryMeta = {
     backend: { title: 'Backend', icon: 'fas fa-server', color: '#FF2D20' },
     frontend: { title: 'Frontend', icon: 'fas fa-palette', color: '#F7DF1E' },
@@ -196,29 +175,6 @@ export default function Index({ name, title, bio, skills, projects, social }) {
                                 ))}
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Experience */}
-            <section id="experience" className="bg-slate-900 px-5 py-24">
-                <div className="mx-auto max-w-3xl">
-                    <SectionHeading pre="Experiência" highlight="Profissional" subtitle="Minha trajetória no desenvolvimento de software." />
-                    <div className="flex flex-col">
-                        {experienceItems.map((job, i) => (
-                            <div key={job.period} className="grid grid-cols-[24px_1fr] gap-5 pb-9">
-                                <div className="flex flex-col items-center">
-                                    <div className="mt-1 h-3.5 w-3.5 flex-shrink-0 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500" />
-                                    {i < experienceItems.length - 1 && <div className="w-0.5 flex-1 bg-slate-700" />}
-                                </div>
-                                <div className="rounded-2xl border border-slate-700 bg-slate-800 px-6 py-5">
-                                    <div className="mb-1.5 text-sm font-semibold text-indigo-300">{job.period}</div>
-                                    <h3 className="m-0 mb-1 text-lg">{job.role}</h3>
-                                    <div className="mb-2.5 text-slate-400">{job.company}</div>
-                                    <p className="m-0 leading-relaxed text-slate-400">{job.description}</p>
-                                </div>
-                            </div>
-                        ))}
                     </div>
                 </div>
             </section>
