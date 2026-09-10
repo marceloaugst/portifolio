@@ -40,7 +40,11 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            // Grava direto em public/storage (pasta real, não link simbólico).
+            // Evita depender de `php artisan storage:link` ou de symlink()
+            // habilitado, o que costuma falhar em hospedagem compartilhada
+            // sem acesso a terminal.
+            'root' => public_path('storage'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
