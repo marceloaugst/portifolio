@@ -15,10 +15,10 @@ class PortfolioController extends Controller
         $skills = $config->normalizedSkills();
 
         $projects = Project::orderBy('order')->get(['id', 'name', 'domain', 'link', 'description', 'screenshots'])
-            ->map(fn ($project) => [
+            ->map(fn($project) => [
                 ...$project->toArray(),
                 'screenshots' => collect($project->screenshots ?? [])
-                    ->map(fn ($path) => "/storage/{$path}")
+                    ->map(fn($path) => "/storage/{$path}")
                     ->values(),
             ]);
 
@@ -30,7 +30,7 @@ class PortfolioController extends Controller
             'projects' => $projects,
             'social' => [
                 'github' => 'https://github.com/marceloaugst',
-                'linkedin' => 'https://www.linkedin.com/in/marcelo-augusto-3120641a3',
+                'linkedin' => 'https://www.linkedin.com/in/marcelo-augusto-alves-farias-63462b197',
                 'email' => 'marcelo.augsd@gmail.com',
             ],
         ]);
